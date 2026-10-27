@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1793005200000,
+      "tag": "0000_create_bookings",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1793008800000,
+      "tag": "0001_seed_demo_salon",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1793012400000,
+      "tag": "0002_prevent_double_booking",
+      "breakpoints": true
+    }
+  ]
+}
