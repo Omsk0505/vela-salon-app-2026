@@ -4,5 +4,12 @@
   "compatibility_date": "2026-05-15",
   "compatibility_flags": ["nodejs_compat"],
   "no_bundle": true,
-  "assets": { "directory": "dist/client" }
+  "assets": { "directory": "dist/client" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vela-salon-d1",
+      "database_id": "2c6989dc-2a12-41e6-a964-e6a2a43f7e35"
+    }
+  ]
 }
