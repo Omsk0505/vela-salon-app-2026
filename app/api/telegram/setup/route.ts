@@ -1,5 +1,7 @@
 import { env } from "cloudflare:workers";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   const token = (env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN ?? process.env.TELEGRAM_BOT_TOKEN;
 
