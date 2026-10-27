@@ -1,5 +1,7 @@
 import { env } from "cloudflare:workers";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   const token = (env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN ?? process.env.TELEGRAM_BOT_TOKEN;
 
@@ -8,7 +10,7 @@ export async function GET(request: Request) {
   }
 
   const webhookUrl = new URL("/api/telegram/webhook", request.url).toString();
-  const telegramResponse = await fetch(`https://api.telegram.org/bot${token}/setWebhook`, {
+  const telegramResponse = await fetch("https://api.telegram.org/bot" + token + "/setWebhook", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ url: webhookUrl, allowed_updates: ["message"] }),
