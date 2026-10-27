@@ -13,7 +13,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const token = (env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN;
+  const token = (env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN ?? process.env.TELEGRAM_BOT_TOKEN;
   if (typeof token !== "string" || !token) {
     return Response.json({ error: "Telegram token is not configured" }, { status: 503 });
   }
