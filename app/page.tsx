@@ -6,6 +6,7 @@ import Automation from "./automation";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
+import ConfiguredSalon from "./configured-salon";
 import Reviews from "./reviews";
 import Payroll from "./payroll";
 import Passes from "./passes";
@@ -144,7 +145,7 @@ export default function Home(){
       {view==="setup"&&<Onboarding/>}
       {view==="journey"&&<Journey/>}
       {view==="team"&&<Team onSchedule={()=>setView("schedule")}/>}
-      {view==="salon"&&<Salon/>}
+      {view==="salon"&&<ConfiguredSalon/>}
       {view==="owner"&&<Owner bookings={bookings} onNew={()=>setModal(true)} onSchedule={()=>setView("schedule")} onRequests={()=>setView("requests")}/>} 
     </section>
     {modal&&<BookingModal saving={saving} onClose={()=>setModal(false)} onSave={async d=>{const ok=await createBooking(d);if(ok)setModal(false)}}/>}
