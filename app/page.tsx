@@ -69,6 +69,7 @@ export default function Home(){
   const [booked,setBooked]=useState(false);
   const [bookings,setBookings]=useState<Booking[]>([]);
   const [saving,setSaving]=useState(false);
+  const [bookingError,setBookingError]=useState("");
   const [modal,setModal]=useState(false);
   const [notifications,setNotifications]=useState(false);
   const [salonName,setSalonName]=useState("Салон «Линия»");
@@ -92,8 +93,8 @@ export default function Home(){
   ];
   const count=[2,4,6][step];
   const createBooking=async(data:Omit<Booking,"id"|"status"|"createdAt">)=>{
-    setSaving(true);
-    try{const r=await fetch("/api/bookings",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)});if(!r.ok)throw new Error();const item=await r.json();setBookings(x=>x.some(b=>b.id===item.id)?x:[...x,item]);return true}catch{return false}finally{setSaving(false)}
+    setSaving(true);setBookingError("");
+    try{const r=await fetch("/api/bookings",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)});const payload=await r.json().catch(()=>({}));if(!r.ok)throw new Error(typeof payload?.error==="string"?payload.error:`Не удалось сохранить запись (${r.status})`);const item=payload as Booking;setBookings(x=>x.some(b=>b.id===item.id)?x:[...x,item]);return true}catch(error){setBookingError(error instanceof Error?error.message:"Не удалось сохранить запись");return false}finally{setSaving(false)}
   };
   const updateStatus=async(id:string,status:string)=>{const r=await fetch(`/api/bookings/${id}`,{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify({status})});if(!r.ok)return false;setBookings(x=>x.map(b=>b.id===id?{...b,status}:b));return true};
   const finish=async()=>{if(step<2){setStep(step+1);return}if(booked)return;const ok=await createBooking({clientName:"Анна Крылова",clientPhone:"+7 900 000-00-00",service:"Маникюр",staff:"Мария",bookingDate:"2026-10-27",bookingTime:"18:30",source:"ai",amount:2400});if(ok)setBooked(true)};
@@ -148,7 +149,8 @@ export default function Home(){
       {view==="salon"&&<ConfiguredSalon/>}
       {view==="owner"&&<Owner bookings={bookings} onNew={()=>setModal(true)} onSchedule={()=>setView("schedule")} onRequests={()=>setView("requests")}/>} 
     </section>
-    {modal&&<BookingModal saving={saving} onClose={()=>setModal(false)} onSave={async d=>{const ok=await createBooking(d);if(ok)setModal(false)}}/>}
+    {modal&&<BookingModal saving={saving} onClose={()=>{setBookingError("");setModal(false)}} onSave={async d=>{const ok=await createBooking(d);if(ok)setModal(false)}}/>}
+    {bookingError&&<div role="alert" style={{position:"fixed",right:24,bottom:24,zIndex:30,maxWidth:420,padding:"14px 18px",border:"1px solid #fecaca",borderRadius:12,background:"#fff1f2",color:"#b42318",fontWeight:700,boxShadow:"0 12px 30px #11182722"}}>{bookingError}</div>}
   </main>
 }
 
