@@ -70,6 +70,16 @@ export default function Home(){
   const [saving,setSaving]=useState(false);
   const [modal,setModal]=useState(false);
   const [notifications,setNotifications]=useState(false);
+  const [salonName,setSalonName]=useState("Салон «Линия»");
+  const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
+  const [salonOpen,setSalonOpen]=useState("10:00");
+  const [salonClose,setSalonClose]=useState("21:00");
+  useEffect(()=>{
+    setSalonName(localStorage.getItem("vela_salon_name") || "Салон «Линия»");
+    setSalonAddress(localStorage.getItem("vela_salon_address") || "Омск, ул. Ленина, 14");
+    setSalonOpen(localStorage.getItem("vela_salon_open") || "10:00");
+    setSalonClose(localStorage.getItem("vela_salon_close") || "21:00");
+  },[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
   const messages=[
     ["client","Здравствуйте! Хочу завтра вечером на маникюр"],
@@ -90,7 +100,7 @@ export default function Home(){
     <aside className="sidebar">
       <div className="logo"><span>V</span><div><b>VELA</b><small>beauty operating system</small></div></div>
       <nav>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i>{n.icon}</i>{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
-      <div className="salon-card"><div className="salon-mark">Л</div><div><b>Салон «Линия»</b><small>Тариф «Бизнес»</small></div><span>⌄</span></div>
+      <div className="salon-card"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small>Тариф «Бизнес»</small></div><span>⌄</span></div>
     </aside>
 
     <section className="workspace">
@@ -106,7 +116,7 @@ export default function Home(){
           <small className="demo-note">Безопасный режим показа: внешние сообщения отключены.</small>
         </section>
         <section className="messenger">
-          <div className="chat-head"><div className="salon-mark">Л</div><div><b>Салон «Линия»</b><small><i/> ИИ-помощник онлайн</small></div><span>•••</span></div>
+          <div className="chat-head"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small><i/> ИИ-помощник онлайн</small></div><span>•••</span></div>
           <div className="messages">{messages.slice(0,count).map((m,i)=><div key={i} className={`message ${m[0]}`}><p>{m[1]}</p><time>19:{42+i*2}</time></div>)}{booked&&<div className="booking-ticket"><span>✓</span><div><b>Запись подтверждена</b><small>Маникюр · завтра, 18:30 · Мария</small></div></div>}</div>
           <div className="input"><span>Напишите сообщение...</span><button>➤</button></div>
         </section>
