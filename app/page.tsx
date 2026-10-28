@@ -77,10 +77,8 @@ export default function Home(){
   const [salonOpen,setSalonOpen]=useState("10:00");
   const [salonClose,setSalonClose]=useState("21:00");
   useEffect(()=>{
-    setSalonName(localStorage.getItem("vela_salon_name") || "Салон «Линия»");
-    setSalonAddress(localStorage.getItem("vela_salon_address") || "Омск, ул. Ленина, 14");
-    setSalonOpen(localStorage.getItem("vela_salon_open") || "10:00");
-    setSalonClose(localStorage.getItem("vela_salon_close") || "21:00");
+    const sync=()=>{setSalonName(localStorage.getItem("vela_salon_name") || "Салон «Линия»");setSalonAddress(localStorage.getItem("vela_salon_address") || "Омск, ул. Ленина, 14");setSalonOpen(localStorage.getItem("vela_salon_open") || "10:00");setSalonClose(localStorage.getItem("vela_salon_close") || "21:00")};
+    sync(); const timer=window.setInterval(sync,500); return()=>window.clearInterval(timer);
   },[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
   const messages=[
