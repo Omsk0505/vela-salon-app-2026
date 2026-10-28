@@ -48,7 +48,7 @@ const worker = {
       return Response.json({ ok, description: result.description ?? null, webhookUrl }, { status: ok ? 200 : 502 });
     }
 
-    if (url.pathname === "/_vinext/image") {
+      if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
         fetchAsset: (path) => env.ASSETS.fetch(new Request(new URL(path, request.url))),
@@ -57,9 +57,12 @@ const worker = {
           return result.response();
         },
       }, allowedWidths);
-    }
+      }
 
-    return handler.fetch(request, env, ctx);
+      // Make the live Worker environment available to Vinext route handlers.
+      // Some runtime paths expose an empty `cloudflare:workers` env proxy.
+      (globalThis as typeof globalThis & { __VELA_ENV?: Env }).__VELA_ENV = env;
+      return handler.fetch(request, env, ctx);
   },
 };
 

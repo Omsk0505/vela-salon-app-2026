@@ -3,7 +3,8 @@ import { env } from "cloudflare:workers";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const token = (env as unknown as Record<string, unknown>).TELEGRAM_BOT_TOKEN ?? process.env.TELEGRAM_BOT_TOKEN;
+  const runtimeEnv = ((globalThis as typeof globalThis & { __VELA_ENV?: Record<string, unknown> }).__VELA_ENV ?? env) as Record<string, unknown>;
+  const token = runtimeEnv.TELEGRAM_BOT_TOKEN ?? process.env.TELEGRAM_BOT_TOKEN;
 
   if (typeof token !== "string" || !token) {
     return Response.json({ error: "TELEGRAM_BOT_TOKEN is not configured" }, { status: 503 });
