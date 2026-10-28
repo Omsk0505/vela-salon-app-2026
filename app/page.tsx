@@ -6,6 +6,7 @@ import Automation from "./automation";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
+import ConfiguredSalon from "./configured-salon";
 import Reviews from "./reviews";
 import Payroll from "./payroll";
 import Passes from "./passes";
@@ -68,8 +69,19 @@ export default function Home(){
   const [booked,setBooked]=useState(false);
   const [bookings,setBookings]=useState<Booking[]>([]);
   const [saving,setSaving]=useState(false);
+  const [bookingError,setBookingError]=useState("");
   const [modal,setModal]=useState(false);
   const [notifications,setNotifications]=useState(false);
+  const [salonName,setSalonName]=useState("Салон «Линия»");
+  const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
+  const [salonOpen,setSalonOpen]=useState("10:00");
+  const [salonClose,setSalonClose]=useState("21:00");
+  useEffect(()=>{
+    setSalonName(localStorage.getItem("vela_salon_name") || "Салон «Линия»");
+    setSalonAddress(localStorage.getItem("vela_salon_address") || "Омск, ул. Ленина, 14");
+    setSalonOpen(localStorage.getItem("vela_salon_open") || "10:00");
+    setSalonClose(localStorage.getItem("vela_salon_close") || "21:00");
+  },[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
   const messages=[
     ["client","Здравствуйте! Хочу завтра вечером на маникюр"],
@@ -81,8 +93,8 @@ export default function Home(){
   ];
   const count=[2,4,6][step];
   const createBooking=async(data:Omit<Booking,"id"|"status"|"createdAt">)=>{
-    setSaving(true);
-    try{const r=await fetch("/api/bookings",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)});if(!r.ok)throw new Error();const item=await r.json();setBookings(x=>x.some(b=>b.id===item.id)?x:[...x,item]);return true}catch{return false}finally{setSaving(false)}
+    setSaving(true);setBookingError("");
+    try{const r=await fetch("/api/bookings",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)});const payload=await r.json().catch(()=>({}));if(!r.ok)throw new Error(typeof payload?.error==="string"?payload.error:`Не удалось сохранить запись (${r.status})`);const item=payload as Booking;setBookings(x=>x.some(b=>b.id===item.id)?x:[...x,item]);return true}catch(error){setBookingError(error instanceof Error?error.message:"Не удалось сохранить запись");return false}finally{setSaving(false)}
   };
   const updateStatus=async(id:string,status:string)=>{const r=await fetch(`/api/bookings/${id}`,{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify({status})});if(!r.ok)return false;setBookings(x=>x.map(b=>b.id===id?{...b,status}:b));return true};
   const finish=async()=>{if(step<2){setStep(step+1);return}if(booked)return;const ok=await createBooking({clientName:"Анна Крылова",clientPhone:"+7 900 000-00-00",service:"Маникюр",staff:"Мария",bookingDate:"2026-10-27",bookingTime:"18:30",source:"ai",amount:2400});if(ok)setBooked(true)};
@@ -90,7 +102,7 @@ export default function Home(){
     <aside className="sidebar">
       <div className="logo"><span>V</span><div><b>VELA</b><small>beauty operating system</small></div></div>
       <nav>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i>{n.icon}</i>{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
-      <div className="salon-card"><div className="salon-mark">Л</div><div><b>Салон «Линия»</b><small>Тариф «Бизнес»</small></div><span>⌄</span></div>
+      <div className="salon-card"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small>Тариф «Бизнес»</small></div><span>⌄</span></div>
     </aside>
 
     <section className="workspace">
@@ -106,7 +118,7 @@ export default function Home(){
           <small className="demo-note">Безопасный режим показа: внешние сообщения отключены.</small>
         </section>
         <section className="messenger">
-          <div className="chat-head"><div className="salon-mark">Л</div><div><b>Салон «Линия»</b><small><i/> ИИ-помощник онлайн</small></div><span>•••</span></div>
+          <div className="chat-head"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small><i/> ИИ-помощник онлайн</small></div><span>•••</span></div>
           <div className="messages">{messages.slice(0,count).map((m,i)=><div key={i} className={`message ${m[0]}`}><p>{m[1]}</p><time>19:{42+i*2}</time></div>)}{booked&&<div className="booking-ticket"><span>✓</span><div><b>Запись подтверждена</b><small>Маникюр · завтра, 18:30 · Мария</small></div></div>}</div>
           <div className="input"><span>Напишите сообщение...</span><button>➤</button></div>
         </section>
@@ -134,10 +146,11 @@ export default function Home(){
       {view==="setup"&&<Onboarding/>}
       {view==="journey"&&<Journey/>}
       {view==="team"&&<Team onSchedule={()=>setView("schedule")}/>}
-      {view==="salon"&&<Salon/>}
+      {view==="salon"&&<ConfiguredSalon/>}
       {view==="owner"&&<Owner bookings={bookings} onNew={()=>setModal(true)} onSchedule={()=>setView("schedule")} onRequests={()=>setView("requests")}/>} 
     </section>
-    {modal&&<BookingModal saving={saving} onClose={()=>setModal(false)} onSave={async d=>{const ok=await createBooking(d);if(ok)setModal(false)}}/>}
+    {modal&&<BookingModal saving={saving} onClose={()=>{setBookingError("");setModal(false)}} onSave={async d=>{const ok=await createBooking(d);if(ok)setModal(false)}}/>}
+    {bookingError&&<div role="alert" style={{position:"fixed",right:24,bottom:24,zIndex:30,maxWidth:420,padding:"14px 18px",border:"1px solid #fecaca",borderRadius:12,background:"#fff1f2",color:"#b42318",fontWeight:700,boxShadow:"0 12px 30px #11182722"}}>{bookingError}</div>}
   </main>
 }
 
