@@ -117,7 +117,6 @@ export default function Home(){
         <button className="vela-welcome-enter" onClick={closeWelcome}>Начать <span>→</span></button>
         <span className="vela-welcome-hint">Подготовка рабочего пространства</span>
       </div>
-      <div className="vela-welcome-progress"><i/></div>
     </section>}
     <main className="app-shell" onClick={e=>{const t=e.target as HTMLElement;if(t.closest(".search"))setView("clients");if(t.closest(".user"))setView("owner")}}>
     <aside className="sidebar">
