@@ -115,7 +115,7 @@ export default function Home(){
         <p className="vela-welcome-kicker">Универсальная система управления бизнесом</p>
         <h1>Всё важное<br/><em>в одном центре.</em></h1>
         <p className="vela-welcome-copy">Клиенты, команда, продажи и автоматизация — собраны в понятном рабочем пространстве.</p>
-        <button className="vela-welcome-enter" onClick={closeWelcome}>Открыть рабочий центр <span>→</span></button>
+        <button className="vela-welcome-enter" onClick={closeWelcome}>Начать <span>→</span></button>
         <span className="vela-welcome-hint">Подготовка рабочего пространства</span>
       </div>
       <div className="vela-welcome-progress"><i/></div>
