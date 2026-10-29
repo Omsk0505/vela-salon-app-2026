@@ -96,7 +96,7 @@ export default function Home(){
   };
   const updateStatus=async(id:string,status:string)=>{const r=await fetch(`/api/bookings/${id}`,{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify({status})});if(!r.ok)return false;setBookings(x=>x.map(b=>b.id===id?{...b,status}:b));return true};
   const finish=async()=>{if(step<2){setStep(step+1);return}if(booked)return;const ok=await createBooking({clientName:"Анна Крылова",clientPhone:"+7 900 000-00-00",service:"Маникюр",staff:"Мария",bookingDate:"2026-10-27",bookingTime:"18:30",source:"ai",amount:2400});if(ok)setBooked(true)};
-  return <main className="app-shell">
+  return <main className="app-shell" onClick={e=>{const t=e.target as HTMLElement;if(t.closest(".search"))setView("clients");if(t.closest(".user"))setView("owner")}}>
     <aside className="sidebar">
       <div className="logo"><span>V</span><div><b>VELA</b><small>beauty operating system</small></div></div>
       <nav>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i>{n.icon}</i>{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
