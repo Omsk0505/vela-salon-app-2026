@@ -20,6 +20,7 @@ import Universal from "./universal";
 import Onboarding from "./onboarding";
 import Journey from "./journey";
 import "./shell-upgrades.css";
+import "./profile-context.css";
 
 type View = "assistant" | "booking" | "requests" | "schedule" | "clients" | "automation" | "finance" | "inventory" | "marketing" | "reviews" | "payroll" | "passes" | "analytics" | "portal" | "access" | "integrations" | "security" | "setup" | "journey" | "telegram" | "universal" | "team" | "salon" | "owner";
 type Booking={id:string;clientName:string;clientPhone:string;service:string;staff:string;bookingDate:string;bookingTime:string;source:string;status:string;amount:number;createdAt:string};

@@ -1,0 +1,5 @@
+.workspace[data-industry="health"]{--purple:#0b8f88;--violet:#e4f7f4}
+.workspace[data-industry="sport"]{--purple:#e05b2b;--violet:#fff0e9}
+.workspace[data-industry="education"]{--purple:#3478d4;--violet:#eaf2ff}
+.workspace[data-industry="studio"]{--purple:#b24d92;--violet:#f8eaf5}
+.workspace[data-industry="other"]{--purple:#526174;--violet:#eef2f6}
