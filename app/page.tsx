@@ -57,7 +57,7 @@ const navSections=[
   {name:"Управление",ids:["finance","inventory","payroll","analytics","team"] as View[]},
   {name:"Система",ids:["integrations","telegram","universal","access","security","setup","salon"] as View[]},
 ];
-const industryNames: Record<string,string>={beauty:"Красота",health:"Здоровье",sport:"Спорт",education:"Обучение",studio:"Студия",other:"Другое"};
+const industryNames: Record<string,string>={beauty:"Салон красоты",health:"Клиника и здоровье",sport:"Спортивный клуб",education:"Учебный центр",studio:"Творческая студия",other:"Другая организация"};
 
 const staff = [
   {name:"Мария",role:"Маникюр",color:"#ff6b60",initial:"М"},
