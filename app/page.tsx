@@ -56,6 +56,7 @@ const navSections=[
   {name:"Управление",ids:["finance","inventory","payroll","analytics","team"] as View[]},
   {name:"Система",ids:["integrations","telegram","universal","access","security","setup","salon"] as View[]},
 ];
+const industryNames: Record<string,string>={beauty:"Красота",health:"Здоровье",sport:"Спорт",education:"Обучение",studio:"Студия",other:"Другое"};
 
 const staff = [
   {name:"Мария",role:"Маникюр",color:"#ff6b60",initial:"М"},
@@ -65,6 +66,7 @@ const staff = [
 
 export default function Home(){
   const [view,setView]=useState<View>("owner");
+  const [industry,setIndustry]=useState("beauty");
   const [step,setStep]=useState(0);
   const [booked,setBooked]=useState(false);
   const [bookings,setBookings]=useState<Booking[]>([]);
@@ -80,6 +82,7 @@ export default function Home(){
     const sync=()=>{setSalonName(localStorage.getItem("vela_salon_name") || "Салон «Линия»");setSalonAddress(localStorage.getItem("vela_salon_address") || "Омск, ул. Ленина, 14");setSalonOpen(localStorage.getItem("vela_salon_open") || "10:00");setSalonClose(localStorage.getItem("vela_salon_close") || "21:00")};
     sync(); const timer=window.setInterval(sync,500); return()=>window.clearInterval(timer);
   },[]);
+  useEffect(()=>{const syncIndustry=()=>setIndustry(localStorage.getItem("vela_industry") || "beauty");syncIndustry();const timer=window.setInterval(syncIndustry,500);return()=>window.clearInterval(timer)},[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
   const messages=[
     ["client","Здравствуйте! Хочу завтра вечером на маникюр"],
@@ -99,7 +102,8 @@ export default function Home(){
   return <main className="app-shell" onClick={e=>{const t=e.target as HTMLElement;if(t.closest(".search"))setView("clients");if(t.closest(".user"))setView("owner")}}>
     <aside className="sidebar">
       <div className="logo"><span>V</span><div><b>VELA</b><small>beauty operating system</small></div></div>
-      <nav>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i>{n.icon}</i>{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
+      <div className="nav-profile" style={{margin:"0 12px 10px",padding:"9px 10px",border:"1px solid #ffffff18",borderRadius:12,background:"#ffffff0d",display:"flex",flexDirection:"column",gap:3}}><span style={{fontSize:9,color:"#aeb8cf",textTransform:"uppercase",letterSpacing:".08em"}}>Профиль бизнеса</span><b style={{fontSize:12,color:"#fff"}}>{industryNames[industry] || "Бизнес"}</b></div>
+      <nav data-industry={industry}>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i>{n.icon}</i>{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
       <div className="salon-card"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small>Тариф «Бизнес»</small></div><span>⌄</span></div>
     </aside>
 
