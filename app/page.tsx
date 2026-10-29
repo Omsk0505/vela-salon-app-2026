@@ -77,6 +77,7 @@ export default function Home(){
   const [bookingError,setBookingError]=useState("");
   const [modal,setModal]=useState(false);
   const [notifications,setNotifications]=useState(false);
+  const [welcome,setWelcome]=useState(true);
   const [salonName,setSalonName]=useState("Салон «Линия»");
   const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
   const [salonOpen,setSalonOpen]=useState("10:00");
@@ -87,6 +88,7 @@ export default function Home(){
   },[]);
   useEffect(()=>{const syncIndustry=()=>setIndustry(localStorage.getItem("vela_industry") || "beauty");syncIndustry();const timer=window.setInterval(syncIndustry,500);return()=>window.clearInterval(timer)},[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
+  useEffect(()=>{const timer=window.setTimeout(()=>setWelcome(false),3200);return()=>window.clearTimeout(timer)},[]);
   const messages=[
     ["client","Здравствуйте! Хочу завтра вечером на маникюр"],
     ["ai","Здравствуйте, Анна! Подойдёт любой мастер или нужен определённый?"],
@@ -102,7 +104,20 @@ export default function Home(){
   };
   const updateStatus=async(id:string,status:string)=>{const r=await fetch(`/api/bookings/${id}`,{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify({status})});if(!r.ok)return false;setBookings(x=>x.map(b=>b.id===id?{...b,status}:b));return true};
   const finish=async()=>{if(step<2){setStep(step+1);return}if(booked)return;const ok=await createBooking({clientName:"Анна Крылова",clientPhone:"+7 900 000-00-00",service:"Маникюр",staff:"Мария",bookingDate:"2026-10-27",bookingTime:"18:30",source:"ai",amount:2400});if(ok)setBooked(true)};
-  return <main className="app-shell" onClick={e=>{const t=e.target as HTMLElement;if(t.closest(".search"))setView("clients");if(t.closest(".user"))setView("owner")}}>
+  return <>
+    {welcome&&<section className="vela-welcome" aria-label="Добро пожаловать в VELA">
+      <div className="vela-welcome-bg"/>
+      <div className="vela-welcome-content">
+        <div className="vela-welcome-brand"><span>V</span><b>VELA</b></div>
+        <p className="vela-welcome-kicker">Универсальная система управления бизнесом</p>
+        <h1>Всё важное<br/><em>в одном центре.</em></h1>
+        <p className="vela-welcome-copy">Клиенты, команда, продажи и автоматизация — собраны в понятном рабочем пространстве.</p>
+        <button className="vela-welcome-enter" onClick={()=>setWelcome(false)}>Открыть рабочий центр <span>→</span></button>
+        <span className="vela-welcome-hint">Подготовка рабочего пространства</span>
+      </div>
+      <div className="vela-welcome-progress"><i/></div>
+    </section>}
+    <main className="app-shell" onClick={e=>{const t=e.target as HTMLElement;if(t.closest(".search"))setView("clients");if(t.closest(".user"))setView("owner")}}>
     <aside className="sidebar">
       <div className="logo"><span>V</span><div><b>VELA</b><small>beauty operating system</small></div></div>
       <div className="nav-profile" style={{margin:"0 12px 10px",padding:"9px 10px",border:"1px solid #ffffff18",borderRadius:12,background:"#ffffff0d",display:"flex",flexDirection:"column",gap:3}}><span style={{fontSize:9,color:"#aeb8cf",textTransform:"uppercase",letterSpacing:".08em"}}>Профиль бизнеса</span><b style={{fontSize:12,color:"#fff"}}>{industryNames[industry] || "Бизнес"}</b></div>
@@ -156,7 +171,8 @@ export default function Home(){
     </section>
     {modal&&<BookingModal saving={saving} onClose={()=>{setBookingError("");setModal(false)}} onSave={async d=>{const ok=await createBooking(d);if(ok)setModal(false)}}/>}
     {bookingError&&<div role="alert" style={{position:"fixed",right:24,bottom:24,zIndex:30,maxWidth:420,padding:"14px 18px",border:"1px solid #fecaca",borderRadius:12,background:"#fff1f2",color:"#b42318",fontWeight:700,boxShadow:"0 12px 30px #11182722"}}>{bookingError}</div>}
-  </main>
+    </main>
+  </>
 }
 
 function Schedule({bookings,onNew}:{bookings:Booking[];onNew:()=>void}){const [day,setDay]=useState(0);const dates=["26 октября","27 октября","28 октября"];const currentDate=`2026-10-${String(26+day).padStart(2,"0")}`;const visible=bookings.filter(b=>b.bookingDate===currentDate);const free=Math.max(0,30-visible.length);return <div className="page-content">
