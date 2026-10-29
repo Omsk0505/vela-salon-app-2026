@@ -91,7 +91,6 @@ export default function Home(){
   useEffect(()=>{const syncIndustry=()=>setIndustry(localStorage.getItem("vela_industry") || "beauty");syncIndustry();const timer=window.setInterval(syncIndustry,500);return()=>window.clearInterval(timer)},[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
   const closeWelcome=()=>{if(welcomeLeaving)return;setWelcomeLeaving(true);window.setTimeout(()=>setWelcome(false),700)};
-  useEffect(()=>{const timer=window.setTimeout(closeWelcome,3200);return()=>window.clearTimeout(timer)},[welcomeLeaving]);
   const messages=[
     ["client","Здравствуйте! Хочу завтра вечером на маникюр"],
     ["ai","Здравствуйте, Анна! Подойдёт любой мастер или нужен определённый?"],
