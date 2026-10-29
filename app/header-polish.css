@@ -10,3 +10,6 @@
 .control button,.primary,.outline,.owner-actions button{border-radius:12px;min-height:44px;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
 .control button:hover,.primary:hover,.outline:hover,.owner-actions button:hover{transform:translateY(-1px);filter:brightness(1.02);box-shadow:0 10px 24px #7657e826}
 @media(max-width:650px){.header-actions{gap:7px}.header-actions .search{display:flex;padding:0 12px}.search span{display:none}.search{width:44px;justify-content:center;padding:0}.user:after{display:none}}
+.owner-heading h2{font-size:0}
+.owner-heading h2:after{content:"Сегодня в компании";font-size:32px}
+@media(max-width:650px){.owner-heading h2:after{font-size:27px}}

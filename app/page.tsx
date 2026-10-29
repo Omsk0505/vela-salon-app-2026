@@ -47,7 +47,7 @@ const nav: {id: View; label: string; icon: string}[] = [
   {id:"setup",label:"Настройка",icon:"⚙"},
   {id:"journey",label:"Сквозной сценарий",icon:"→"},
   {id:"team",label:"Команда",icon:"◇"},
-  {id:"salon",label:"Салон",icon:"⚙"},
+  {id:"salon",label:"Организация",icon:"⚙"},
   {id:"owner",label:"Сегодня",icon:"⌂"},
 ];
 const navSections=[
