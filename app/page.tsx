@@ -1,3 +1,4 @@
+import "./landing-reference.css";
 "use client";
 
 import { useEffect, useState } from "react";
