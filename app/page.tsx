@@ -1,4 +1,5 @@
 import "./landing-reference.css";
+import "./welcome-smooth.css";
 "use client";
 
 import { useEffect, useState } from "react";
@@ -78,6 +79,7 @@ export default function Home(){
   const [modal,setModal]=useState(false);
   const [notifications,setNotifications]=useState(false);
   const [welcome,setWelcome]=useState(true);
+  const [welcomeLeaving,setWelcomeLeaving]=useState(false);
   const [salonName,setSalonName]=useState("Салон «Линия»");
   const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
   const [salonOpen,setSalonOpen]=useState("10:00");
@@ -88,7 +90,8 @@ export default function Home(){
   },[]);
   useEffect(()=>{const syncIndustry=()=>setIndustry(localStorage.getItem("vela_industry") || "beauty");syncIndustry();const timer=window.setInterval(syncIndustry,500);return()=>window.clearInterval(timer)},[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
-  useEffect(()=>{const timer=window.setTimeout(()=>setWelcome(false),3200);return()=>window.clearTimeout(timer)},[]);
+  const closeWelcome=()=>{if(welcomeLeaving)return;setWelcomeLeaving(true);window.setTimeout(()=>setWelcome(false),700)};
+  useEffect(()=>{const timer=window.setTimeout(closeWelcome,3200);return()=>window.clearTimeout(timer)},[welcomeLeaving]);
   const messages=[
     ["client","Здравствуйте! Хочу завтра вечером на маникюр"],
     ["ai","Здравствуйте, Анна! Подойдёт любой мастер или нужен определённый?"],
@@ -105,14 +108,14 @@ export default function Home(){
   const updateStatus=async(id:string,status:string)=>{const r=await fetch(`/api/bookings/${id}`,{method:"PATCH",headers:{"content-type":"application/json"},body:JSON.stringify({status})});if(!r.ok)return false;setBookings(x=>x.map(b=>b.id===id?{...b,status}:b));return true};
   const finish=async()=>{if(step<2){setStep(step+1);return}if(booked)return;const ok=await createBooking({clientName:"Анна Крылова",clientPhone:"+7 900 000-00-00",service:"Маникюр",staff:"Мария",bookingDate:"2026-10-27",bookingTime:"18:30",source:"ai",amount:2400});if(ok)setBooked(true)};
   return <>
-    {welcome&&<section className="vela-welcome" aria-label="Добро пожаловать в VELA">
+    {welcome&&<section className={`vela-welcome${welcomeLeaving?" is-leaving":""}`} aria-label="Добро пожаловать в VELA">
       <div className="vela-welcome-bg"/>
       <div className="vela-welcome-content">
         <div className="vela-welcome-brand"><span>V</span><b>VELA</b></div>
         <p className="vela-welcome-kicker">Универсальная система управления бизнесом</p>
         <h1>Всё важное<br/><em>в одном центре.</em></h1>
         <p className="vela-welcome-copy">Клиенты, команда, продажи и автоматизация — собраны в понятном рабочем пространстве.</p>
-        <button className="vela-welcome-enter" onClick={()=>setWelcome(false)}>Открыть рабочий центр <span>→</span></button>
+        <button className="vela-welcome-enter" onClick={closeWelcome}>Открыть рабочий центр <span>→</span></button>
         <span className="vela-welcome-hint">Подготовка рабочего пространства</span>
       </div>
       <div className="vela-welcome-progress"><i/></div>
