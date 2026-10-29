@@ -147,6 +147,7 @@ export default function Home(){
         </section>
       </div>}
 
+      <div className="product-status-strip"><span className="status-pulse"/>Система работает стабильно <b>·</b><span>Данные синхронизированы только что</span><button onClick={()=>setNotifications(true)}>Открыть уведомления</button></div>
       {view==="booking"&&<OnlineBooking saving={saving} bookings={bookings} onSave={createBooking}/>}
       {view==="requests"&&<Requests bookings={bookings} onStatus={updateStatus} goSchedule={()=>setView("schedule")}/>}
 

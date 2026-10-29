@@ -1,5 +1,11 @@
 html,body{margin:0;padding:0;min-height:100%;}
 .app-shell{margin:0!important;position:relative;top:0;transition:grid-template-columns .28s ease}
+.product-status-strip{min-height:34px;padding:8px 3vw;background:#f7fbfa;border-bottom:1px solid #d8eee7;color:#287b68;font-size:11px;display:flex;align-items:center;gap:8px}
+.product-status-strip span:last-of-type{color:#718a83}
+.product-status-strip b{color:#b4c8c2;font-weight:400}
+.product-status-strip button{margin-left:auto;border:0;background:transparent;color:#7657e8;font-size:11px;font-weight:800;padding:0}
+.status-pulse{width:7px;height:7px;border-radius:50%;background:#16a085;box-shadow:0 0 0 4px #16a08518}
+@media(max-width:650px){.product-status-strip{padding:8px 17px;font-size:10px}.product-status-strip span:last-of-type,.product-status-strip b{display:none}}
 .sidebar{transition:padding .28s ease,background .28s ease}
 .logo{position:relative}
 .sidebar-toggle{margin-left:auto;width:28px;height:28px;border:1px solid #ffffff18;border-radius:9px;background:#ffffff0d;color:#cbd3e4;font-size:14px;cursor:pointer;transition:transform .2s,background .2s}
