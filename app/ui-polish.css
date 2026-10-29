@@ -1,0 +1,17 @@
+/* VELA hybrid interface polish: premium owner view + dense operator calendar */
+.calendar{box-shadow:0 14px 34px rgba(23,32,52,.06)}
+.calendar-head{background:linear-gradient(180deg,#fff,#fafaff)}
+.calendar-row{min-height:58px}
+.appointment{box-shadow:0 3px 9px rgba(23,32,52,.08);font-weight:700}
+.appointment small{font-weight:500}
+.appointment.a1{background:#eeeaff;border-left-color:#7657e8}
+.appointment.a2{background:#e5f7f1;border-left-color:#16a085}
+.appointment.new{background:#fff0cf;border-left-color:#d69616}
+.state{font-weight:800}
+.metric-grid article,.chart-card,.actions-card,.settings-card,.services-card,.client-table,.calendar{box-shadow:0 8px 24px rgba(23,32,52,.035)}
+.owner-heading h2,.section-title{letter-spacing:-.025em}
+@media(max-width:650px){
+  .calendar{border-radius:13px}
+  .calendar-head,.calendar-row{min-width:720px}
+  .appointment{font-size:10px;padding:6px 7px}
+}
