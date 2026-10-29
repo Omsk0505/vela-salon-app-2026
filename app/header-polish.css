@@ -12,4 +12,6 @@
 @media(max-width:650px){.header-actions{gap:7px}.header-actions .search{display:flex;padding:0 12px}.search span{display:none}.search{width:44px;justify-content:center;padding:0}.user:after{display:none}}
 .owner-heading h2{font-size:0}
 .owner-heading h2:after{content:"Сегодня в компании";font-size:32px}
+.owner-heading p{font-size:0}
+.owner-heading p:after{content:"Главное за день — в одном экране. Продажи, команда и задачи уже под контролем.";font-size:15px}
 @media(max-width:650px){.owner-heading h2:after{font-size:27px}}
