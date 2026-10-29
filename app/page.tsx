@@ -107,7 +107,7 @@ export default function Home(){
       <div className="salon-card"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small>Тариф «Бизнес»</small></div><span>⌄</span></div>
     </aside>
 
-    <section className="workspace">
+    <section className="workspace" data-industry={industry}>
       <header><div><small>Сегодня, 26 октября</small><h1>{nav.find(n=>n.id===view)?.label}</h1></div><div className="header-actions"><button className="search">⌕ <span>Поиск</span></button><div className="notification-wrap"><button className="notify" onClick={()=>setNotifications(!notifications)} aria-label="Уведомления">●<span className="notify-badge">4</span></button>{notifications&&<div className="notification-panel"><header><h3>Уведомления</h3><button onClick={()=>setNotifications(false)}>Закрыть</button></header>{[["▦","Новая запись","Анна · маникюр · завтра 18:30","сейчас"],["!","Заканчивается материал","База для покрытия — на 3 услуги","10 мин"],["★","Новый отзыв","Ирина поставила оценку 3","25 мин"],["↻","Свободное окно","Завтра в 15:00 у Софии","1 час"]].map(x=><article key={x[1]}><i>{x[0]}</i><span><b>{x[1]}</b><small>{x[2]}</small></span><em>{x[3]}</em></article>)}</div>}</div><div className="user">АК</div></div></header>
 
       {view==="assistant"&&<div className="assistant-layout">
