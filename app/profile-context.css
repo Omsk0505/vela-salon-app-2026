@@ -3,3 +3,4 @@
 .workspace[data-industry="education"]{--purple:#3478d4;--violet:#eaf2ff}
 .workspace[data-industry="studio"]{--purple:#b24d92;--violet:#f8eaf5}
 .workspace[data-industry="other"]{--purple:#526174;--violet:#eef2f6}
+@media(max-width:650px){.nav-profile{margin:0 8px 6px!important;padding:6px 8px!important;min-width:92px}.nav-profile span{display:none}.nav-profile b{font-size:10px!important}.sidebar nav{margin-top:0}}
