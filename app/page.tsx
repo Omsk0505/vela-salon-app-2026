@@ -107,7 +107,7 @@ export default function Home(){
     ["client","Давайте к Марии в 18:30"],
     ["ai","Готово! Маникюр завтра в 18:30 у Марии. Напомнить за 2 часа?"],
   ];
-  const count=[2,4,6][step];
+  const count=demoSent.length ? 0 : [2,4,6][step];
   const createBooking=async(data:Omit<Booking,"id"|"status"|"createdAt">)=>{
     setSaving(true);setBookingError("");
     try{const r=await fetch("/api/bookings",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)});const payload=await r.json().catch(()=>({}));if(!r.ok)throw new Error(typeof payload?.error==="string"?payload.error:`Не удалось сохранить запись (${r.status})`);const item=payload as Booking;setBookings(x=>x.some(b=>b.id===item.id)?x:[...x,item]);return true}catch(error){setBookingError(error instanceof Error?error.message:"Не удалось сохранить запись");return false}finally{setSaving(false)}
