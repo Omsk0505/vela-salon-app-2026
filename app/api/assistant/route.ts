@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
   const runtime = (globalThis as typeof globalThis & { __VELA_ENV?: Record<string, unknown> }).__VELA_ENV ?? {};
   const ai = runtime.AI as { run?: (model: string, input: unknown) => Promise<{ response?: string }> } | undefined;
   const system: ChatMessage = { role: "system", content: "Ты — живой ИИ-администратор VELA для салона красоты. Отвечай по-русски, естественно и кратко. Уточняй услугу, желаемую дату, время и мастера, не выдумывай свободные окна и не подтверждай запись без проверки расписания. Если данных не хватает — задай один понятный уточняющий вопрос." };
+  system.content = "You are VELA AI assistant. Reply ONLY in Russian. Never use English words or phrases. Be natural, concise, and helpful. Ask one clarifying question when information is missing.";
   if (ai?.run) {
     const result = await ai.run("@cf/meta/llama-3.2-3b-instruct", { messages: [system, ...messages], temperature: 0.4, max_tokens: 220 });
     if (result.response?.trim()) return Response.json({ reply: result.response.trim() });
