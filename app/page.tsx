@@ -82,6 +82,7 @@ export default function Home(){
   const [welcome,setWelcome]=useState(true);
   const [welcomeLeaving,setWelcomeLeaving]=useState(false);
   const [sidebarCollapsed,setSidebarCollapsed]=useState(false);
+  const [profileMenu,setProfileMenu]=useState(false);
   const [salonName,setSalonName]=useState("Салон «Линия»");
   const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
   const [salonOpen,setSalonOpen]=useState("10:00");
@@ -125,7 +126,7 @@ export default function Home(){
       <div className="logo"><span>V</span><div><b>VELA</b><small>business operating system</small></div><button className="sidebar-toggle" onClick={()=>setSidebarCollapsed(x=>!x)} aria-label="Свернуть меню">{sidebarCollapsed?"→":"←"}</button></div>
       <div className="nav-profile" style={{margin:"0 12px 10px",padding:"9px 10px",border:"1px solid #ffffff18",borderRadius:12,background:"#ffffff0d",display:"flex",flexDirection:"column",gap:3}}><span style={{fontSize:9,color:"#aeb8cf",textTransform:"uppercase",letterSpacing:".08em"}}>Профиль бизнеса</span><b style={{fontSize:12,color:"#fff"}}>{industryNames[industry] || "Бизнес"}</b></div>
       <nav data-industry={industry}>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i>{n.icon}</i>{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
-      <div className="salon-card"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small>Тариф «Бизнес»</small></div><span>⌄</span></div>
+      <div className={`salon-card${profileMenu?" is-open":""}`} onClick={()=>setProfileMenu(x=>!x)} role="button" tabIndex={0} onKeyDown={e=>{if(e.key==="Enter"||e.key===" ")setProfileMenu(x=>!x)}}><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small>Тариф «Бизнес»</small></div><span className="salon-chevron">⌄</span>{profileMenu&&<div className="profile-menu" onClick={e=>e.stopPropagation()}><button onClick={()=>{setView("salon");setProfileMenu(false)}}>⚙ Настройки организации</button><button onClick={()=>{setView("universal");setProfileMenu(false)}}>◈ Тип бизнеса</button><button onClick={()=>setProfileMenu(false)}>Закрыть меню</button></div>}</div>
     </aside>
 
     <section className="workspace" data-industry={industry}>
