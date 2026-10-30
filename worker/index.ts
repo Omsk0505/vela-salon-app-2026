@@ -43,6 +43,18 @@ const worker = {
       return Response.json({ ok, description: result.description ?? null, webhookUrl }, { status: ok ? 200 : 502 });
     }
 
+    // Keep the AI call at the Worker boundary so the Cloudflare binding is
+    // always the real production binding, even when the route adapter hides it.
+    if (url.pathname === "/api/assistant" && request.method === "POST") {
+      const body = await request.json().catch(() => null) as { messages?: Array<{ role: string; content: string }> } | null;
+      const messages = Array.isArray(body?.messages) ? body.messages.slice(-12) : [];
+      if (!messages.length) return Response.json({ error: "Сообщение не передано" }, { status: 400 });
+      if (!env.AI) return Response.json({ error: "Workers AI binding не настроен" }, { status: 503 });
+      const system = { role: "system", content: "Ты — живой ИИ-администратор VELA. Отвечай по-русски естественно и кратко. Уточняй услугу, дату, время и мастера; не выдумывай свободные окна и не подтверждай запись без проверки расписания." };
+      const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", { messages: [system, ...messages], temperature: 0.4, max_tokens: 220 });
+      return result.response?.trim() ? Response.json({ reply: result.response.trim() }) : Response.json({ error: "ИИ не вернул ответ" }, { status: 502 });
+    }
+
       if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
