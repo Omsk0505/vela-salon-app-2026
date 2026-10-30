@@ -87,6 +87,7 @@ export default function Home(){
   const [demoInput,setDemoInput]=useState("");
   const [demoSent,setDemoSent]=useState<string[]>([]);
   const [demoReplies,setDemoReplies]=useState<string[]>([]);
+  const [chatMenu,setChatMenu]=useState(false);
   const sendingAssistantRef = useRef(false);
   const [salonName,setSalonName]=useState("Салон «Линия»");
   const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
@@ -147,7 +148,7 @@ export default function Home(){
           <small className="demo-note">Безопасный режим показа: внешние сообщения отключены.</small>
         </section>
         <section className="messenger">
-          <div className="chat-head"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small><i/> ИИ-помощник онлайн</small></div><span>•••</span></div>
+          <div className="chat-head"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small><i/> ИИ-помощник онлайн</small></div><button className="chat-more" onClick={()=>setChatMenu(x=>!x)} aria-label="Меню диалога">•••</button>{chatMenu&&<div className="chat-menu"><button onClick={()=>{setDemoSent([]);setDemoReplies([]);setDemoInput("");setChatMenu(false)}}>Очистить диалог</button><button onClick={()=>{setView("booking");setChatMenu(false)}}>Создать запись</button><button onClick={()=>setChatMenu(false)}>Закрыть меню</button></div>}</div>
           <div className="messages">{messages.slice(0,count).map((m,i)=><div key={`base-${i}`} className={`message ${m[0]}`}><p>{m[1]}</p><time>19:{42+i*2}</time></div>)}{demoSent.map((text,i)=><div key={`sent-${i}`}><div className="message client"><p>{text}</p><time>сейчас</time></div>{demoReplies[i]&&<div className="message ai"><p>{demoReplies[i]}</p><time>только что</time></div>}</div>)}{booked&&<div className="booking-ticket"><span>✓</span><div><b>Запись подтверждена</b><small>Маникюр · завтра, 18:30 · Мария</small></div></div>}</div>
           <form className="input" onSubmit={async e=>{e.preventDefault();const text=demoInput.trim();if(!text||saving)return;setSaving(true);setDemoSent(x=>[...x,text]);setDemoInput("");try{const history=[...demoSent.map((content,i)=>({role:(i%2===0?"user":"assistant") as "user"|"assistant",content})),{role:"user" as const,content:text}];const r=await fetch("/api/assistant",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({messages:history})});const data=await r.json().catch(()=>({}));setDemoReplies(x=>[...x,data.reply||data.error||"Не удалось получить ответ ИИ."]);setStep(s=>Math.min(2,s+1))}finally{setSaving(false)}}}><input value={demoInput} onChange={e=>setDemoInput(e.target.value)} placeholder="Напишите сообщение..." aria-label="Сообщение для ИИ"/><button type="submit" aria-label="Отправить сообщение">➤</button></form>
         </section>
