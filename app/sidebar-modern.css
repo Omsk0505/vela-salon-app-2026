@@ -38,4 +38,7 @@ button:focus-visible{outline:3px solid #7657e855;outline-offset:2px}
 .profile-menu button{display:block;width:100%;padding:10px 11px;border:0;border-radius:8px;background:transparent;color:#e9edfa;text-align:left;font-size:11px;font-weight:700}
 .profile-menu button:hover{background:#ffffff12;transform:none}
 .sidebar.is-collapsed .profile-menu{left:48px;bottom:0}
+.input input{min-width:0;flex:1;height:42px;border:0;outline:0;background:transparent;color:var(--ink);font-size:14px}
+.input input::placeholder{color:#9ba2b2}
+.input button{box-shadow:0 6px 14px #7657e844}
 @media(max-width:1000px){.sidebar-toggle{display:none}.app-shell:has(.sidebar.is-collapsed){grid-template-columns:76px 1fr}}

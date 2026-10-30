@@ -83,6 +83,8 @@ export default function Home(){
   const [welcomeLeaving,setWelcomeLeaving]=useState(false);
   const [sidebarCollapsed,setSidebarCollapsed]=useState(false);
   const [profileMenu,setProfileMenu]=useState(false);
+  const [demoInput,setDemoInput]=useState("");
+  const [demoSent,setDemoSent]=useState<string[]>([]);
   const [salonName,setSalonName]=useState("Салон «Линия»");
   const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
   const [salonOpen,setSalonOpen]=useState("10:00");
@@ -143,8 +145,8 @@ export default function Home(){
         </section>
         <section className="messenger">
           <div className="chat-head"><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small><i/> ИИ-помощник онлайн</small></div><span>•••</span></div>
-          <div className="messages">{messages.slice(0,count).map((m,i)=><div key={i} className={`message ${m[0]}`}><p>{m[1]}</p><time>19:{42+i*2}</time></div>)}{booked&&<div className="booking-ticket"><span>✓</span><div><b>Запись подтверждена</b><small>Маникюр · завтра, 18:30 · Мария</small></div></div>}</div>
-          <div className="input"><span>Напишите сообщение...</span><button>➤</button></div>
+          <div className="messages">{messages.slice(0,count).map((m,i)=><div key={`base-${i}`} className={`message ${m[0]}`}><p>{m[1]}</p><time>19:{42+i*2}</time></div>)}{demoSent.map((text,i)=><div key={`sent-${i}`} className="message client"><p>{text}</p><time>сейчас</time></div>)}{booked&&<div className="booking-ticket"><span>✓</span><div><b>Запись подтверждена</b><small>Маникюр · завтра, 18:30 · Мария</small></div></div>}</div>
+          <form className="input" onSubmit={e=>{e.preventDefault();const text=demoInput.trim();if(!text)return;setDemoSent(x=>[...x,text]);setDemoInput("");window.setTimeout(()=>setStep(s=>Math.min(2,s+1)),350)}}><input value={demoInput} onChange={e=>setDemoInput(e.target.value)} placeholder="Напишите сообщение..." aria-label="Сообщение для ИИ"/><button type="submit" aria-label="Отправить сообщение">➤</button></form>
         </section>
       </div>}
 
