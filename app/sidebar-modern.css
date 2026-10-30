@@ -41,4 +41,5 @@ button:focus-visible{outline:3px solid #7657e855;outline-offset:2px}
 .input input{min-width:0;flex:1;height:42px;border:0;outline:0;background:transparent;color:var(--ink);font-size:14px}
 .input input::placeholder{color:#9ba2b2}
 .input button{box-shadow:0 6px 14px #7657e844}
+.message-reply{display:block;margin:10px -4px -2px;padding:10px 0 0;border-top:1px solid #ffffff3b;color:#eef0ff;font-size:12px;line-height:1.4}
 @media(max-width:1000px){.sidebar-toggle{display:none}.app-shell:has(.sidebar.is-collapsed){grid-template-columns:76px 1fr}}
