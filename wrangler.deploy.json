@@ -5,6 +5,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "no_bundle": true,
   "assets": { "directory": "dist/client" },
+  "ai": { "binding": "AI" },
   "d1_databases": [
     {
       "binding": "DB",

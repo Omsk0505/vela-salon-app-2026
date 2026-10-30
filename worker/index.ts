@@ -13,6 +13,7 @@ interface Env {
       };
     };
   };
+  AI?: { run(model: string, input: { messages: Array<{ role: string; content: string }>; temperature?: number; max_tokens?: number }): Promise<{ response?: string }> };
 }
 
 interface ExecutionContext {
