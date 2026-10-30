@@ -52,7 +52,7 @@ const worker = {
       if (!env.AI) return Response.json({ error: "Workers AI binding не настроен" }, { status: 503 });
       const system = { role: "system", content: "Ты — живой ИИ-администратор VELA. Отвечай по-русски естественно и кратко. Уточняй услугу, дату, время и мастера; не выдумывай свободные окна и не подтверждай запись без проверки расписания." };
       try {
-        const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", { messages: [system, ...messages], temperature: 0.4, max_tokens: 220 });
+        const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", { messages: [system, ...messages], temperature: 0.4, max_tokens: 220 });
         return result.response?.trim() ? Response.json({ reply: result.response.trim() }) : Response.json({ error: "ИИ не вернул ответ" }, { status: 502 });
       } catch (error) {
         return Response.json({ error: `Workers AI: ${error instanceof Error ? error.message : String(error)}` }, { status: 502 });
