@@ -22,6 +22,11 @@ button:focus-visible{outline:3px solid #7657e855;outline-offset:2px}
 .sidebar.is-collapsed nav button{justify-content:center;padding-left:8px;padding-right:8px}
 .sidebar.is-collapsed nav button{font-size:0;white-space:nowrap;overflow:hidden}
 .sidebar.is-collapsed nav button i{font-size:18px;flex:0 0 22px}
+.sidebar nav button i{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:#ffffff0b;border:1px solid #ffffff0d;color:#aeb8cf;font-size:14px;line-height:1;transition:background .2s ease,color .2s ease,box-shadow .2s ease,transform .2s ease}
+.sidebar nav button:hover i{background:#7657e826;color:#ddd6ff;transform:scale(1.05)}
+.sidebar nav button.selected i{background:linear-gradient(145deg,#8d76f4,#6d51d7);border-color:#a99aff;color:#fff;box-shadow:0 5px 14px #7657e84d}
+.sidebar nav button.selected{box-shadow:inset 3px 0 0 #8e79f5}
+.sidebar.is-collapsed nav button i{width:34px;height:34px;font-size:16px}
 .sidebar.is-collapsed nav button em{display:none}
 .sidebar.is-collapsed .salon-card{justify-content:center}
 @media(max-width:1000px){.sidebar-toggle{display:none}.app-shell:has(.sidebar.is-collapsed){grid-template-columns:76px 1fr}}
