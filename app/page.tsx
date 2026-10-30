@@ -1,4 +1,5 @@
 import "./landing-reference.css";
+import "./assistant-polish.css";
 import "./welcome-smooth.css";
 import "./sidebar-modern.css";
 "use client";
