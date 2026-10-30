@@ -4,7 +4,7 @@ import "./welcome-smooth.css";
 import "./sidebar-modern.css";
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ClientsNew from "./clients";
 import Automation from "./automation";
 import Finance from "./finance";
@@ -87,6 +87,7 @@ export default function Home(){
   const [demoInput,setDemoInput]=useState("");
   const [demoSent,setDemoSent]=useState<string[]>([]);
   const [demoReplies,setDemoReplies]=useState<string[]>([]);
+  const sendingAssistantRef = useRef(false);
   const [salonName,setSalonName]=useState("Салон «Линия»");
   const [salonAddress,setSalonAddress]=useState("Омск, ул. Ленина, 14");
   const [salonOpen,setSalonOpen]=useState("10:00");
@@ -142,7 +143,7 @@ export default function Home(){
           <h2>Записывает клиента<br/>прямо в диалоге</h2>
           <p>Понимает обычную речь, проверяет расписание и создаёт запись без ожидания администратора.</p>
           <div className="advantages"><div><b>24/7</b><span>отвечает клиентам</span></div><div><b>1 мин</b><span>до готовой записи</span></div><div><b>0</b><span>ручных переносов</span></div></div>
-          <div className="control"><button onClick={finish} disabled={saving}>{saving?"Сохраняем...":step<2?"Продолжить диалог":"Подтвердить запись"}</button><button className="ghost" onClick={()=>{setStep(0);setBooked(false)}}>Сначала</button></div>
+          <div className="control"><button onClick={finish} disabled={saving}>{saving?"Сохраняем...":step<2?"Продолжить диалог":"Подтвердить запись"}</button><button className="ghost" onClick={()=>{setStep(0);setBooked(false);setDemoSent([]);setDemoReplies([]);setDemoInput("")}}>Сначала</button></div>
           <small className="demo-note">Безопасный режим показа: внешние сообщения отключены.</small>
         </section>
         <section className="messenger">
