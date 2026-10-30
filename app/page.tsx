@@ -126,7 +126,7 @@ export default function Home(){
         <span className="vela-welcome-hint">Подготовка рабочего пространства</span>
       </div>
     </section>}
-    <main className="app-shell" onClick={e=>{const t=e.target as HTMLElement;if(t.closest(".search"))setView("clients");if(t.closest(".user"))setView("owner")}}>
+    <main className={`app-shell${view === "assistant" ? " assistant-mode" : ""}`} onClick={e=>{const t=e.target as HTMLElement;if(t.closest(".search"))setView("clients");if(t.closest(".user"))setView("owner")}}>
     <aside className={`sidebar${sidebarCollapsed?" is-collapsed":""}`}>
       <div className="logo"><span>V</span><div><b>VELA</b><small>business operating system</small></div><button className="sidebar-toggle" onClick={()=>setSidebarCollapsed(x=>!x)} aria-label="Свернуть меню">{sidebarCollapsed?"→":"←"}</button></div>
       <div className="nav-profile" style={{margin:"0 12px 10px",padding:"9px 10px",border:"1px solid #ffffff18",borderRadius:12,background:"#ffffff0d",display:"flex",flexDirection:"column",gap:3}}><span style={{fontSize:9,color:"#aeb8cf",textTransform:"uppercase",letterSpacing:".08em"}}>Профиль бизнеса</span><b style={{fontSize:12,color:"#fff"}}>{industryNames[industry] || "Бизнес"}</b></div>
