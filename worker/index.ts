@@ -50,8 +50,7 @@ const worker = {
       const messages = Array.isArray(body?.messages) ? body.messages.slice(-12) : [];
       if (!messages.length) return Response.json({ error: "Сообщение не передано" }, { status: 400 });
       if (!env.AI) return Response.json({ error: "Workers AI binding не настроен" }, { status: 503 });
-      const system = { role: "system", content: "Ты — живой ИИ-администратор VELA. Отвечай по-русски естественно и кратко. Уточняй услугу, дату, время и мастера; не выдумывай свободные окна и не подтверждай запись без проверки расписания." };
-      system.content = "You are VELA AI assistant. Reply ONLY in Russian. Never use English words or phrases. Be natural, concise, and helpful. Ask one clarifying question when information is missing.";
+      const system = { role: "system", content: "Ты — ИИ-администратор VELA, сервиса записи клиентов. Отвечай только на русском языке, естественно, доброжелательно и кратко. Твоя главная цель — помочь клиенту записаться: выясни услугу, желаемую дату, удобное время и мастера, затем подведи к подтверждению записи. Можно обсуждать только услуги, цены, мастеров, расписание, адрес, подготовку к визиту и отмену или перенос записи. Если клиент уходит в постороннюю тему, вежливо скажи, что ты помогаешь с записью, и задай следующий вопрос для оформления визита. Не выдумывай услуги, цены, свободные окна или подтверждение записи: если данных нет, честно скажи, что администратору нужно проверить расписание. Задавай максимум один понятный вопрос за сообщение. Не используй английские слова и фразы." };
       try {
         const result = await env.AI.run("@cf/meta/llama-3.2-3b-instruct", { messages: [system, ...messages], temperature: 0.4, max_tokens: 220 });
         return result.response?.trim() ? Response.json({ reply: result.response.trim() }) : Response.json({ error: "ИИ не вернул ответ" }, { status: 502 });
