@@ -9,6 +9,7 @@
 .appointment.new{background:#fff0cf;border-left-color:#d69616}
 .state{font-weight:800}
 .metric-grid article,.chart-card,.actions-card,.settings-card,.services-card,.client-table,.calendar{box-shadow:0 8px 24px rgba(23,32,52,.035)}
+.sidebar nav button i.bi{font-size:16px;line-height:1;width:22px;color:currentColor}
 .owner-heading h2,.section-title{letter-spacing:-.025em}
 @media(max-width:650px){
   .calendar{border-radius:13px}

@@ -31,30 +31,7 @@ type View = "assistant" | "booking" | "requests" | "schedule" | "clients" | "aut
 type Booking={id:string;clientName:string;clientPhone:string;service:string;staff:string;bookingDate:string;bookingTime:string;source:string;status:string;amount:number;createdAt:string};
 
 const nav: {id: View; label: string; icon: string}[] = [
-  {id:"assistant",label:"ИИ-запись",icon:"✦"},
-  {id:"booking",label:"Онлайн-запись",icon:"◉"},
-  {id:"requests",label:"Заявки",icon:"☰"},
-  {id:"schedule",label:"Расписание",icon:"▦"},
-  {id:"clients",label:"Клиенты",icon:"◎"},
-  {id:"automation",label:"Автоматизация",icon:"↻"},
-  {id:"finance",label:"Финансы",icon:"₽"},
-  {id:"inventory",label:"Склад",icon:"▣"},
-  {id:"marketing",label:"Маркетинг",icon:"✦"},
-  {id:"reviews",label:"Отзывы",icon:"★"},
-  {id:"payroll",label:"Зарплата",icon:"₽"},
-  {id:"passes",label:"Абонементы",icon:"◇"},
-  {id:"analytics",label:"Аналитика",icon:"↗"},
-  {id:"portal",label:"Кабинет клиента",icon:"◉"},
-  {id:"access",label:"Доступы",icon:"◐"},
-  {id:"integrations",label:"Интеграции",icon:"⌁"},
-  {id:"telegram",label:"Telegram",icon:"TG"},
-  {id:"universal",label:"Тип бизнеса",icon:"⊙"},
-  {id:"security",label:"Безопасность",icon:"✓"},
-  {id:"setup",label:"Настройка",icon:"⚙"},
-  {id:"journey",label:"Сквозной сценарий",icon:"→"},
-  {id:"team",label:"Команда",icon:"◇"},
-  {id:"salon",label:"Организация",icon:"⚙"},
-  {id:"owner",label:"Сегодня",icon:"⌂"},
+  {id:"assistant",label:"ИИ-запись",icon:"stars"},{id:"booking",label:"Онлайн-запись",icon:"calendar2-check"},{id:"requests",label:"Заявки",icon:"inbox"},{id:"schedule",label:"Расписание",icon:"calendar3"},{id:"clients",label:"Клиенты",icon:"people"},{id:"automation",label:"Автоматизация",icon:"arrow-repeat"},{id:"finance",label:"Финансы",icon:"cash-stack"},{id:"inventory",label:"Склад",icon:"boxes"},{id:"marketing",label:"Маркетинг",icon:"megaphone"},{id:"reviews",label:"Отзывы",icon:"star"},{id:"payroll",label:"Зарплата",icon:"wallet2"},{id:"passes",label:"Абонементы",icon:"ticket-perforated"},{id:"analytics",label:"Аналитика",icon:"graph-up-arrow"},{id:"portal",label:"Кабинет клиента",icon:"person-vcard"},{id:"access",label:"Доступы",icon:"person-lock"},{id:"integrations",label:"Интеграции",icon:"plug"},{id:"telegram",label:"Telegram",icon:"telegram"},{id:"universal",label:"Тип бизнеса",icon:"building"},{id:"security",label:"Безопасность",icon:"shield-check"},{id:"setup",label:"Настройка",icon:"gear"},{id:"journey",label:"Сквозной сценарий",icon:"diagram-3"},{id:"team",label:"Команда",icon:"person-lines-fill"},{id:"salon",label:"Организация",icon:"shop"},{id:"owner",label:"Сегодня",icon:"house"},
 ];
 const navSections=[
   {name:"Работа",ids:["owner","assistant","booking","requests","schedule","journey"] as View[]},
@@ -131,7 +108,7 @@ export default function Home(){
     <aside className={`sidebar${sidebarCollapsed?" is-collapsed":""}`}>
       <div className="logo"><span>V</span><div><b>VELA</b><small>business operating system</small></div><button className="sidebar-toggle" onClick={()=>setSidebarCollapsed(x=>!x)} aria-label="Свернуть меню">{sidebarCollapsed?"→":"←"}</button></div>
       <div className="nav-profile" style={{margin:"0 12px 10px",padding:"9px 10px",border:"1px solid #ffffff18",borderRadius:12,background:"#ffffff0d",display:"flex",flexDirection:"column",gap:3}}><span style={{fontSize:9,color:"#aeb8cf",textTransform:"uppercase",letterSpacing:".08em"}}>Профиль бизнеса</span><b style={{fontSize:12,color:"#fff"}}>{industryNames[industry] || "Бизнес"}</b></div>
-      <nav data-industry={industry}>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i>{n.icon}</i>{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
+      <nav data-industry={industry}>{navSections.map(section=><div className="nav-section" key={section.name}><button className="nav-section-title" disabled>{section.name}</button><div className="nav-section-items">{section.ids.map(id=>{const n=nav.find(x=>x.id===id)!;return <button key={n.id} className={view===n.id?"selected":""} onClick={()=>setView(n.id)}><i className={`bi bi-${n.icon}`} aria-hidden="true" />{n.label}{n.id==="assistant"&&<em>AI</em>}</button>})}</div></div>)}</nav>
       <div className={`salon-card${profileMenu?" is-open":""}`} onClick={()=>setProfileMenu(x=>!x)} role="button" tabIndex={0} onKeyDown={e=>{if(e.key==="Enter"||e.key===" ")setProfileMenu(x=>!x)}}><div className="salon-mark">{salonName.slice(0,1)}</div><div><b>{salonName}</b><small>Тариф «Бизнес»</small></div><span className="salon-chevron">⌄</span>{profileMenu&&<div className="profile-menu" onClick={e=>e.stopPropagation()}><button onClick={()=>{setView("salon");setProfileMenu(false)}}>⚙ Настройки организации</button><button onClick={()=>{setView("universal");setProfileMenu(false)}}>◈ Тип бизнеса</button><button onClick={()=>setProfileMenu(false)}>Закрыть меню</button></div>}</div>
     </aside>
 
