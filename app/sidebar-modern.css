@@ -30,6 +30,7 @@ button:focus-visible{outline:3px solid #7657e855;outline-offset:2px}
 .sidebar.is-collapsed nav button em{display:none}
 .sidebar.is-collapsed .salon-card{justify-content:center}
 .salon-card{position:relative;cursor:pointer;border-radius:12px;transition:background .2s ease,transform .2s ease}
+.salon-card .vela-mark{background:linear-gradient(145deg,#8e6bff,#e36bb6);color:#fff;font-family:Inter,system-ui,sans-serif;font-weight:900}
 .salon-card:hover,.salon-card.is-open{background:#ffffff0b}
 .salon-card:focus-visible{outline:2px solid #9d8dff;outline-offset:2px}
 .salon-chevron{transition:transform .2s ease}
