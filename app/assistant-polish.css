@@ -7,7 +7,9 @@
 @media(max-width:1000px){.messenger{justify-self:center}}
 .input input:focus-visible{outline:3px solid #cfc4ff;outline-offset:-3px;border-radius:8px}.input button:focus-visible,.chat-more:focus-visible,.chat-menu button:focus-visible,.control button:focus-visible{outline:3px solid #cfc4ff;outline-offset:2px}.input button:disabled,.control button:disabled{opacity:.55;cursor:wait;transform:none;box-shadow:none}.chat-menu button:active,.control button:active,.input button:active{transform:scale(.97)}
 .input input{display:flex;align-items:center;height:42px;padding:0 10px;line-height:42px;box-sizing:border-box}
-.messenger{border:8px solid #172034;border-radius:34px;background:#f7f6fc;box-shadow:0 28px 58px rgba(23,32,52,.18)}
+.messenger{position:relative;border:8px solid #172034;border-radius:34px;background:#f7f6fc;box-shadow:0 28px 58px rgba(23,32,52,.18);padding-top:0}
+.messenger:before{content:"";position:absolute;z-index:4;top:8px;left:50%;width:86px;height:20px;transform:translateX(-50%);border-radius:0 0 14px 14px;background:#172034}
+.messenger:after{content:"";position:absolute;z-index:5;top:15px;left:calc(50% + 24px);width:4px;height:4px;border-radius:50%;background:#5b4fb0;box-shadow:0 0 5px #8f7cff}
 .chat-head{height:75px;padding:12px 16px;border-bottom:1px solid #e3e2eb}
 .messages{background:#f5f4fa}
 .input{height:62px;padding:0 12px;background:#fff;border-top:1px solid #e7e5ef;gap:8px}
