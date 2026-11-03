@@ -5,3 +5,23 @@
     radial-gradient(circle at 92% 72%, rgba(205, 132, 92, .22), transparent 27%),
     linear-gradient(112deg, #071321 0%, #0c1d31 48%, #17364a 100%);
 }
+
+/* A distinct lightweight atmosphere for each business profile. */
+.workspace[data-industry="beauty"] .owner-page:before{
+  background:radial-gradient(circle at 80% 20%,rgba(225,126,183,.3),transparent 29%),linear-gradient(112deg,#10182c 0%,#29244d 54%,#6e3d65 100%);
+}
+.workspace[data-industry="health"] .owner-page:before{
+  background:radial-gradient(circle at 82% 18%,rgba(92,211,185,.28),transparent 30%),linear-gradient(112deg,#071b27 0%,#124655 55%,#216d70 100%);
+}
+.workspace[data-industry="sport"] .owner-page:before{
+  background:radial-gradient(circle at 80% 20%,rgba(255,170,74,.3),transparent 28%),linear-gradient(112deg,#171525 0%,#3c2633 54%,#914d2e 100%);
+}
+.workspace[data-industry="education"] .owner-page:before{
+  background:radial-gradient(circle at 82% 18%,rgba(112,177,255,.3),transparent 30%),linear-gradient(112deg,#081a32 0%,#203c68 55%,#3d6090 100%);
+}
+.workspace[data-industry="studio"] .owner-page:before{
+  background:radial-gradient(circle at 80% 20%,rgba(190,139,255,.32),transparent 30%),linear-gradient(112deg,#171329 0%,#3c2d61 55%,#72518b 100%);
+}
+.workspace[data-industry="other"] .owner-page:before{
+  background:radial-gradient(circle at 80% 20%,rgba(116,205,214,.26),transparent 30%),linear-gradient(112deg,#081923 0%,#1d3d4c 55%,#356873 100%);
+}
