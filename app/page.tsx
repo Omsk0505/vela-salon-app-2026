@@ -146,7 +146,7 @@ export default function Home(){
       {view==="analytics"&&<Analytics/>}
       {view==="portal"&&<ClientPortal/>}
       {view==="access"&&<Access/>}
-      {view==="integrations"&&<Integrations/>}
+      {view==="integrations"&&<Integrations onTelegram={()=>setView("telegram")}/>}
       {view==="telegram"&&<Telegram/>}
       {view==="universal"&&<Universal/>}
       {view==="security"&&<Security/>}
