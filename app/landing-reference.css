@@ -9,7 +9,7 @@
 .owner-page > .metric-grid,
 .owner-page > .owner-columns{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px}
 .owner-page > .metric-grid{margin-top:20px;margin-bottom:20px}
-.owner-page > .metric-grid > article{grid-column:span 3;min-width:0}
+.owner-page > .metric-grid > article{grid-column:span 3;min-width:0;min-height:154px;display:grid;grid-template-rows:auto 1fr auto;align-items:start}
 .owner-page > .owner-columns > .chart-card{grid-column:span 7;min-width:0}
 .owner-page > .owner-columns > .actions-card{grid-column:span 5;min-width:0}
 .owner-page .bars{gap:clamp(8px,1.7vw,17px)}
