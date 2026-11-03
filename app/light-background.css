@@ -6,6 +6,16 @@
     linear-gradient(112deg, #071321 0%, #0c1d31 48%, #17364a 100%);
 }
 
+.owner-page .notice{
+  background:linear-gradient(110deg,#ffffff 0%,#f7f5ff 100%);
+  border:1px solid #ddd8f5;
+  box-shadow:0 12px 28px rgba(23,32,52,.12);
+  color:var(--ink);
+}
+.owner-page .notice>span{color:var(--purple)}
+.owner-page .notice small{color:var(--muted)}
+.owner-page .notice button{background:var(--purple);color:#fff}
+
 /* A distinct lightweight atmosphere for each business profile. */
 .workspace[data-industry="beauty"] .owner-page:before{
   background:radial-gradient(circle at 80% 20%,rgba(225,126,183,.3),transparent 29%),linear-gradient(112deg,#10182c 0%,#29244d 54%,#6e3d65 100%);
