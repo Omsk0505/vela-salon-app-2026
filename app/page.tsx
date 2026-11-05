@@ -112,7 +112,8 @@ export default function Home(){
     ["ai","Готово! Маникюр завтра в 18:30 у Марии. Напомнить за 2 часа?"],
   ];
   const count=demoSent.length ? 0 : [2,4,6][step];
-  const assistantBusinessName=industry==="beauty"?salonName:(localStorage.getItem("vela_salon_name")||industryNames[industry]||salonName);
+  const storedBusinessName=localStorage.getItem("vela_salon_name")||"";
+  const assistantBusinessName=industry==="beauty"?salonName:(storedBusinessName&& !/салон|линия/i.test(storedBusinessName)?storedBusinessName:(industryNames[industry]||salonName));
   const adaptiveMessages=industry==="beauty"?messages:([
     ["client",industry==="health"?"Здравствуйте! Хочу записаться на консультацию":"Здравствуйте! Хочу записаться на "+(industry==="sport"?"тренировку":industry==="education"?"занятие":industry==="studio"?"проект":"услугу")],
     ["ai",industry==="health"?"Здравствуйте! Подберём удобное время для приёма. Вам нужен конкретный специалист?":"Здравствуйте! Подберём удобное время и специалиста. Что вам удобно?"],
