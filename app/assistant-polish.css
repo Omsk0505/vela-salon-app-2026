@@ -35,3 +35,14 @@
 .messenger .message.client{border-bottom-right-radius:4px}
 .messenger .message.ai{border-bottom-left-radius:4px}
 @media(prefers-reduced-motion:reduce){.message,.control button,.input button{animation:none;transition:none}.control button:hover,.input button:hover{transform:none}}
+
+/* Reference phone layout: keep the mockup centered and visually balanced at every width. */
+.assistant-layout{align-items:center;}
+.messenger{align-self:center;justify-self:center;width:470px;max-width:100%;height:620px;overflow:hidden;}
+.chat-head{display:flex;align-items:center;gap:10px;}
+.chat-head>div:nth-child(2){display:flex;flex-direction:column;gap:3px;min-width:0;}
+.messages{display:flex;flex-direction:column;overflow-y:auto;}
+.message.client{align-self:flex-end;}
+.message.ai{align-self:flex-start;}
+.input{display:flex;align-items:center;}
+@media(max-width:850px){.assistant-layout{align-items:start}.messenger{width:min(470px,100%);}}
