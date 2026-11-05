@@ -11,6 +11,7 @@ import AdaptiveAnalytics from "./adaptive-analytics";
 import AdaptiveAutomation from "./adaptive-automation";
 import AdaptiveMarketing from "./adaptive-marketing";
 import AdaptiveAccess from "./adaptive-access";
+import AdaptiveSecurity from "./adaptive-security";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -154,7 +155,7 @@ export default function Home(){
       {view==="integrations"&&<Integrations onTelegram={()=>setView("telegram")}/>}
       {view==="telegram"&&<Telegram/>}
       {view==="universal"&&<Universal/>}
-      {view==="security"&&<Security/>}
+      {view==="security"&&<AdaptiveSecurity/>}
       {view==="setup"&&<Onboarding/>}
       {view==="journey"&&<Journey/>}
       {view==="team"&&<Team onSchedule={()=>setView("schedule")}/>}
