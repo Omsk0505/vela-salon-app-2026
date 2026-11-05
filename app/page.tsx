@@ -113,6 +113,13 @@ export default function Home(){
   ];
   const count=demoSent.length ? 0 : [2,4,6][step];
   const assistantBusinessName=industry==="beauty"?salonName:(localStorage.getItem("vela_salon_name")||industryNames[industry]||salonName);
+  const adaptiveMessages=industry==="beauty"?messages:([
+    ["client",industry==="health"?"Здравствуйте! Хочу записаться на консультацию":"Здравствуйте! Хочу записаться на "+(industry==="sport"?"тренировку":industry==="education"?"занятие":industry==="studio"?"проект":"услугу")],
+    ["ai",industry==="health"?"Здравствуйте! Подберём удобное время для приёма. Вам нужен конкретный специалист?":"Здравствуйте! Подберём удобное время и специалиста. Что вам удобно?"],
+    ["client","В любое удобное время"],
+    ["ai","Проверю доступные варианты и предложу лучшее время."]
+  ] as string[][]);
+  if(industry!=="beauty"){messages[0]=adaptiveMessages[0];messages[1]=adaptiveMessages[1];messages[2]=adaptiveMessages[2];messages[3]=adaptiveMessages[3];}
   const createBooking=async(data:Omit<Booking,"id"|"status"|"createdAt">)=>{
     setSaving(true);setBookingError("");
     try{const r=await fetch("/api/bookings",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(data)});const payload=await r.json().catch(()=>({}));if(!r.ok)throw new Error(typeof payload?.error==="string"?payload.error:`Не удалось сохранить запись (${r.status})`);const item=payload as Booking;setBookings(x=>x.some(b=>b.id===item.id)?x:[...x,item]);return true}catch(error){setBookingError(error instanceof Error?error.message:"Не удалось сохранить запись");return false}finally{setSaving(false)}
