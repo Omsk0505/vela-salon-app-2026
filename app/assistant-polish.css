@@ -26,6 +26,9 @@
 .input input::placeholder{color:#9b9aac;opacity:1}
 .messenger .salon-mark{width:42px;height:42px;border-radius:13px}
 .messenger .message{max-width:84%;border-radius:15px}
+.messenger .message{padding:13px 14px 8px;line-height:1.35;box-shadow:0 7px 18px rgba(23,32,52,.08)}
+.messenger .message p{font-size:14px;line-height:1.4}
+.messenger .message time{font-size:9px;margin-top:5px}
 .messenger .message.client{border-bottom-right-radius:4px}
 .messenger .message.ai{border-bottom-left-radius:4px}
 @media(prefers-reduced-motion:reduce){.message,.control button,.input button{animation:none;transition:none}.control button:hover,.input button:hover{transform:none}}
