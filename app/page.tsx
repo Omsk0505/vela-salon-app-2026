@@ -7,6 +7,7 @@ import "./sidebar-modern.css";
 import { useEffect, useRef, useState } from "react";
 import ClientsNew from "./clients";
 import AdaptiveBooking from "./adaptive-booking";
+import AdaptiveAnalytics from "./adaptive-analytics";
 import Automation from "./automation";
 import Finance from "./finance";
 import Inventory from "./inventory";
@@ -145,7 +146,7 @@ export default function Home(){
       {view==="reviews"&&<Reviews/>}
       {view==="payroll"&&<Payroll/>}
       {view==="passes"&&<Passes/>}
-      {view==="analytics"&&<Analytics/>}
+      {view==="analytics"&&<AdaptiveAnalytics/>}
       {view==="portal"&&<ClientPortal/>}
       {view==="access"&&<Access/>}
       {view==="integrations"&&<Integrations onTelegram={()=>setView("telegram")}/>}
