@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import ClientsNew from "./clients";
 import AdaptiveBooking from "./adaptive-booking";
 import AdaptiveAnalytics from "./adaptive-analytics";
-import Automation from "./automation";
+import AdaptiveAutomation from "./adaptive-automation";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -139,7 +139,7 @@ export default function Home(){
 
       {view==="schedule"&&<Schedule bookings={bookings} onNew={()=>setModal(true)}/>}
       {view==="clients"&&<ClientsNew bookings={bookings}/>}
-      {view==="automation"&&<Automation bookings={bookings}/>}
+      {view==="automation"&&<AdaptiveAutomation/>}
       {view==="finance"&&<Finance bookings={bookings} onStatus={updateStatus}/>}
       {view==="inventory"&&<Inventory/>}
       {view==="marketing"&&<Marketing/>}
