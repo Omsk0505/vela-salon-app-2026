@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./reviews.css";
 
 type Review = {
@@ -22,14 +22,17 @@ const reviews: Review[] = [
 ];
 
 export default function Reviews(){
+  const [industry,setIndustry]=useState("beauty");
   const [filter,setFilter]=useState("Все");
   const [selected,setSelected]=useState<Review>(reviews[1]);
   const [reply,setReply]=useState("");
   const [sent,setSent]=useState<number[]>([]);
   const [requested,setRequested]=useState(false);
+  useEffect(()=>{const sync=()=>setIndustry(localStorage.getItem("vela_industry")||"beauty");sync();const t=setInterval(sync,500);return()=>clearInterval(t)},[]);
+  const subject=industry==="health"?"пациенту":industry==="sport"?"участнику":industry==="education"?"ученику":"клиенту";
   const visible=useMemo(()=>reviews.filter(r=>filter==="Все"||(filter==="Требуют ответа"?r.rating<=3:r.rating===Number(filter))),[filter]);
   const generate=()=>setReply(selected.rating<=3
-    ?`Ирина, спасибо, что рассказали об ожидании. Нам важно начинать услуги вовремя. Мы уже проверяем расписание и начислили вам 300 бонусов на следующий визит. Будем рады исправить впечатление!`
+    ?`Ирина, спасибо, что рассказали об ожидании. Нам важно начинать услуги вовремя. Мы уже проверяем расписание и начислили вам 300 бонусов на следующий визит. Будем рады исправить впечатление и вернуть вас как ${subject}!`
     :`${selected.client.split(" ")[0]}, спасибо за тёплые слова! Очень рады, что вам понравился результат. Передадим отзыв мастеру и будем ждать вас снова 💜`);
   const send=()=>{if(!reply.trim())return;setSent(x=>[...x,selected.id]);setReply("")};
   return <div className="page-content reviews-page">
