@@ -13,6 +13,7 @@ import AdaptiveMarketing from "./adaptive-marketing";
 import AdaptiveAccess from "./adaptive-access";
 import AdaptiveSecurity from "./adaptive-security";
 import AdaptiveFinance from "./adaptive-finance";
+import AdaptivePasses from "./adaptive-passes";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -149,7 +150,7 @@ export default function Home(){
       {view==="marketing"&&<AdaptiveMarketing/>}
       {view==="reviews"&&<Reviews/>}
       {view==="payroll"&&<Payroll/>}
-      {view==="passes"&&<Passes/>}
+      {view==="passes"&&<AdaptivePasses/>}
       {view==="analytics"&&<AdaptiveAnalytics/>}
       {view==="portal"&&<ClientPortal/>}
       {view==="access"&&<AdaptiveAccess/>}
