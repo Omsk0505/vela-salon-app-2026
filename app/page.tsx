@@ -14,6 +14,7 @@ import AdaptiveAccess from "./adaptive-access";
 import AdaptiveSecurity from "./adaptive-security";
 import AdaptiveFinance from "./adaptive-finance";
 import AdaptivePasses from "./adaptive-passes";
+import AdaptiveClientPortal from "./adaptive-client-portal";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -152,7 +153,7 @@ export default function Home(){
       {view==="payroll"&&<Payroll/>}
       {view==="passes"&&<AdaptivePasses/>}
       {view==="analytics"&&<AdaptiveAnalytics/>}
-      {view==="portal"&&<ClientPortal/>}
+      {view==="portal"&&<AdaptiveClientPortal/>}
       {view==="access"&&<AdaptiveAccess/>}
       {view==="integrations"&&<Integrations onTelegram={()=>setView("telegram")}/>}
       {view==="telegram"&&<Telegram/>}
