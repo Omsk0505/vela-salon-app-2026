@@ -12,6 +12,7 @@ import AdaptiveAutomation from "./adaptive-automation";
 import AdaptiveMarketing from "./adaptive-marketing";
 import AdaptiveAccess from "./adaptive-access";
 import AdaptiveSecurity from "./adaptive-security";
+import AdaptiveFinance from "./adaptive-finance";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -143,7 +144,7 @@ export default function Home(){
       {view==="schedule"&&<Schedule bookings={bookings} onNew={()=>setModal(true)}/>}
       {view==="clients"&&<ClientsNew bookings={bookings}/>}
       {view==="automation"&&<AdaptiveAutomation/>}
-      {view==="finance"&&<Finance bookings={bookings} onStatus={updateStatus}/>}
+      {view==="finance"&&<AdaptiveFinance/>}
       {view==="inventory"&&<Inventory/>}
       {view==="marketing"&&<AdaptiveMarketing/>}
       {view==="reviews"&&<Reviews/>}
