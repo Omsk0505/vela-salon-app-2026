@@ -15,6 +15,7 @@ import AdaptiveSecurity from "./adaptive-security";
 import AdaptiveFinance from "./adaptive-finance";
 import AdaptivePasses from "./adaptive-passes";
 import AdaptiveClientPortal from "./adaptive-client-portal";
+import AdaptiveSchedule from "./adaptive-schedule";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -143,7 +144,7 @@ export default function Home(){
       {view==="booking"&&<AdaptiveBooking saving={saving} onSave={createBooking}/>}
       {view==="requests"&&<Requests bookings={bookings} onStatus={updateStatus} goSchedule={()=>setView("schedule")}/>}
 
-      {view==="schedule"&&<Schedule bookings={bookings} onNew={()=>setModal(true)}/>}
+      {view==="schedule"&&<AdaptiveSchedule/>}
       {view==="clients"&&<ClientsNew bookings={bookings}/>}
       {view==="automation"&&<AdaptiveAutomation/>}
       {view==="finance"&&<AdaptiveFinance/>}
