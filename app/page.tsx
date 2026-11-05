@@ -6,6 +6,7 @@ import "./sidebar-modern.css";
 
 import { useEffect, useRef, useState } from "react";
 import ClientsNew from "./clients";
+import AdaptiveBooking from "./adaptive-booking";
 import Automation from "./automation";
 import Finance from "./finance";
 import Inventory from "./inventory";
@@ -132,7 +133,7 @@ export default function Home(){
         </section>
       </div>}
 
-      {view==="booking"&&<OnlineBooking saving={saving} bookings={bookings} onSave={createBooking}/>}
+      {view==="booking"&&<AdaptiveBooking saving={saving} onSave={createBooking}/>}
       {view==="requests"&&<Requests bookings={bookings} onStatus={updateStatus} goSchedule={()=>setView("schedule")}/>}
 
       {view==="schedule"&&<Schedule bookings={bookings} onNew={()=>setModal(true)}/>}
