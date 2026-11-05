@@ -2,6 +2,7 @@ import "./landing-reference.css";
 import "./assistant-polish.css";
 import "./welcome-smooth.css";
 import "./sidebar-modern.css";
+import "./sidebar-reference.css";
 "use client";
 
 import { useEffect, useRef, useState } from "react";
