@@ -36,6 +36,7 @@ import Journey from "./journey";
 import "./shell-upgrades.css";
 import "./profile-context.css";
 import "./light-background.css";
+import "./product-dark-test.css";
 import "./landing-reference.css";
 
 type View = "assistant" | "booking" | "requests" | "schedule" | "clients" | "automation" | "finance" | "inventory" | "marketing" | "reviews" | "payroll" | "passes" | "analytics" | "portal" | "access" | "integrations" | "security" | "setup" | "journey" | "telegram" | "universal" | "team" | "salon" | "owner";
