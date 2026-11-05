@@ -86,6 +86,21 @@ export default function Home(){
     sync(); const timer=window.setInterval(sync,500); return()=>window.clearInterval(timer);
   },[]);
   useEffect(()=>{const syncIndustry=()=>setIndustry(localStorage.getItem("vela_industry") || "beauty");syncIndustry();const timer=window.setInterval(syncIndustry,500);return()=>window.clearInterval(timer)},[]);
+  useEffect(()=>{const labels:Record<string,string[]>={
+    beauty:["Новая запись","Заканчивается материал","Новый отзыв","Свободное окно"],
+    health:["Новый приём","Заканчиваются расходники","Новый отзыв пациента","Свободное время врача"],
+    sport:["Новая тренировка","Заканчивается инвентарь","Новый отзыв участника","Свободное место"],
+    education:["Новое занятие","Заканчиваются материалы","Новый отзыв ученика","Свободное место в группе"],
+    studio:["Новое бронирование","Заканчивается оборудование","Новый отзыв клиента","Свободное время студии"],
+    other:["Новый заказ","Низкий остаток","Новый отзыв клиента","Свободное окно"]
+  };const details:Record<string,string[]>={
+    beauty:["Анна · маникюр · завтра 18:30","База для покрытия — на 3 услуги","Ирина поставила оценку 3","Завтра в 15:00 у Софии"],
+    health:["Анна · консультация · завтра 18:30","Перчатки — запас на 3 приёма","Ирина оставила оценку 3","Завтра в 15:00 у врача"],
+    sport:["Анна · тренировка · завтра 18:30","Резинки — запас на 3 занятия","Ирина оставила оценку 3","Завтра в 15:00 у тренера"],
+    education:["Анна · занятие курса · завтра 18:30","Материалы — запас на 3 занятия","Ирина оставила оценку 3","Завтра в 15:00 у преподавателя"],
+    studio:["Анна · съёмка · завтра 18:30","Расходники — запас на 3 проекта","Ирина поставила оценку 3","Завтра в 15:00"],
+    other:["Анна · новая услуга · завтра 18:30","Расходники — запас на 3 заказа","Ирина поставила оценку 3","Завтра в 15:00"]
+  };const sync=()=>{const key=localStorage.getItem("vela_industry")||"beauty";const a=labels[key]||labels.other;const d=details[key]||details.other;document.querySelectorAll(".notification-panel article").forEach((el,i)=>{const b=el.querySelector("b"),s=el.querySelector("small");if(b)b.textContent=a[i];if(s)s.textContent=d[i]})};const t=window.setInterval(sync,300);sync();return()=>window.clearInterval(t)},[]);
   useEffect(()=>{fetch("/api/bookings").then(r=>r.ok?r.json():[]).then(setBookings).catch(()=>setBookings([]))},[]);
   const closeWelcome=()=>{if(welcomeLeaving)return;setWelcomeLeaving(true);window.setTimeout(()=>setWelcome(false),700)};
   const messages=[
