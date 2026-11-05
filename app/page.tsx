@@ -9,6 +9,7 @@ import ClientsNew from "./clients";
 import AdaptiveBooking from "./adaptive-booking";
 import AdaptiveAnalytics from "./adaptive-analytics";
 import AdaptiveAutomation from "./adaptive-automation";
+import AdaptiveMarketing from "./adaptive-marketing";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -142,7 +143,7 @@ export default function Home(){
       {view==="automation"&&<AdaptiveAutomation/>}
       {view==="finance"&&<Finance bookings={bookings} onStatus={updateStatus}/>}
       {view==="inventory"&&<Inventory/>}
-      {view==="marketing"&&<Marketing/>}
+      {view==="marketing"&&<AdaptiveMarketing/>}
       {view==="reviews"&&<Reviews/>}
       {view==="payroll"&&<Payroll/>}
       {view==="passes"&&<Passes/>}
