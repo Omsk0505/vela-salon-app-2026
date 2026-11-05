@@ -10,6 +10,7 @@ import AdaptiveBooking from "./adaptive-booking";
 import AdaptiveAnalytics from "./adaptive-analytics";
 import AdaptiveAutomation from "./adaptive-automation";
 import AdaptiveMarketing from "./adaptive-marketing";
+import AdaptiveAccess from "./adaptive-access";
 import Finance from "./finance";
 import Inventory from "./inventory";
 import Marketing from "./marketing";
@@ -149,7 +150,7 @@ export default function Home(){
       {view==="passes"&&<Passes/>}
       {view==="analytics"&&<AdaptiveAnalytics/>}
       {view==="portal"&&<ClientPortal/>}
-      {view==="access"&&<Access/>}
+      {view==="access"&&<AdaptiveAccess/>}
       {view==="integrations"&&<Integrations onTelegram={()=>setView("telegram")}/>}
       {view==="telegram"&&<Telegram/>}
       {view==="universal"&&<Universal/>}
