@@ -10,6 +10,7 @@
 .messenger{position:relative;border:8px solid #172034;border-radius:34px;background:#f7f6fc;box-shadow:0 28px 58px rgba(23,32,52,.18);padding-top:0}
 .messenger:before,.messenger:after{display:none}
 .assistant-layout{grid-template-columns:minmax(0,1fr) 470px;gap:5vw}
+.assistant-layout{background:linear-gradient(135deg,#f6f5ff 0%,#f1f0f8 52%,#eeedf7 100%)}
 .messenger{height:620px}
 .messages{height:467px}
 @media(max-width:1000px){.assistant-layout{grid-template-columns:1fr 470px;gap:24px}}
